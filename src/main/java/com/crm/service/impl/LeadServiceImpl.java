@@ -58,6 +58,18 @@ public class LeadServiceImpl implements LeadService {
         return allLeadDto;
     }
 
+    @Override
+    public LeadDto findByLid(String lid) {
+        Lead lead = leadRepo.findById(lid).orElseThrow(() -> new LeadExist("lead with id not exist: " + lid));
+        return mapToDto(lead);
+
+    }
+
+    @Override
+    public List<Lead> getLeadsExcelReports() {
+        return leadRepo.findAll();
+    }
+
     private Lead mapToEntity(LeadDto dto){
         return modelMapper.map(dto,Lead.class);
     }
